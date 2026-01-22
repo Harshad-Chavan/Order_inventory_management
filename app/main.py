@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from app.api.routes import health_check
+from app.core.settings import settings
 
-app = FastAPI(title="Order and Inventory Management API", version="1.0.0")
+app = FastAPI(title=settings.APP_NAME, version="1.0.0")
 
 app.include_router(health_check.router, prefix="/health_check", tags=["health_check"])
 

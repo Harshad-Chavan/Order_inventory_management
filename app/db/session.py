@@ -4,13 +4,11 @@ from sqlalchemy.ext.asyncio import (
     create_async_engine,
     async_sessionmaker
 )
-from dotenv import load_dotenv
 
-load_dotenv(verbose=True)
+from app.core.settings import settings
 
 def create_postgres_engine():
-    DATABASE_URL = f"{os.getenv("DATABASE_URL")}"
-    return create_async_engine(DATABASE_URL)
+    return create_async_engine(settings.DATABASE_URL)
 
 engine = create_postgres_engine()
 
