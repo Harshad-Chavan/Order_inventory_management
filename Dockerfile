@@ -26,7 +26,7 @@ RUN uv sync --frozen --no-cache
 # -------------------------------
 # Application layer
 # -------------------------------
-COPY app ./app
+COPY . ./app
 
 EXPOSE 8000
 
