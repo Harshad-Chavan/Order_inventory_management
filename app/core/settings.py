@@ -4,13 +4,14 @@ class Settings(BaseSettings):
     APP_NAME: str
     # Database
     DATABASE_URL: str
+    ALEMBIC_DATABASE_URL: str
 
     # Security
     SECRET_KEY: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=".env.local",
         env_file_encoding="utf-8",
         extra="ignore"
     )
