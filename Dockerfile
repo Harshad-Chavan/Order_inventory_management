@@ -28,10 +28,6 @@ RUN uv sync --frozen --no-cache
 # -------------------------------
 COPY . ./app
 
-RUN chmod +x /entrypoint.sh
-
 EXPOSE 8000
 
-ENTRYPOINT ["uv","run","uvicorn"]
-
-CMD ["app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["sh", "-c", "uv run alembic upgrade head && uv run uvicorn app.main:app --host 0.0.0.0 --port 8000"]
