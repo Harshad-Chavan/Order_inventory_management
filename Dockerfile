@@ -28,6 +28,8 @@ RUN uv sync --frozen --no-cache
 # -------------------------------
 COPY . ./app
 
+RUN chmod +x /entrypoint.sh
+
 EXPOSE 8000
 
 ENTRYPOINT ["uv","run","uvicorn"]
