@@ -10,13 +10,15 @@ from app.db.session import get_db
 
 router = APIRouter()
 
-@router.post("/register_user",response_model=UserResponse)
-async def register_user(data: UserCreate,db: AsyncSession = Depends(get_db)):
-        try:
-            return await create_user(data.username, data.email, data.password, db)
-        except Exception as e:
-            raise HTTPException(status_code=400, detail="User creation failed")
 
-@router.get("/user_details")
+@router.post("/register_user", response_model=UserResponse)
+async def register_user(data: UserCreate, db: AsyncSession = Depends(get_db)):
+    try:
+        return await create_user(data.username, data.email, data.password, db)
+    except Exception as e:
+        raise HTTPException(status_code=400, detail="User creation failed")
+
+
+@router.get("/user_details", response_model=UserResponse)
 async def user_details(current_user: Annotated[UserResponse, Depends(get_current_user)]):
     return current_user

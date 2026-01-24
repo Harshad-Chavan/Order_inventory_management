@@ -13,6 +13,7 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     return password_hasher.verify(plain_password,hashed_password)
 
 def create_access_token(subject: str) -> str:
-    expire = datetime.datetime.utcnow() + datetime.timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
-    payload = {"sub": subject, "exp": expire}
+    now = datetime.datetime.utcnow()
+    expire = now + datetime.timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+    payload = {"sub": subject, "exp": expire, "iat": now}
     return jwt.encode(payload, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
