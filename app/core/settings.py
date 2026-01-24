@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     # Security
     SECRET_KEY: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    ALGORITHM : str
 
     model_config = SettingsConfigDict(
         env_file=".env.local",
