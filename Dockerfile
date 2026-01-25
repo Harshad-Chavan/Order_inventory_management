@@ -6,9 +6,6 @@ FROM python:3.13-slim AS base
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
-RUN useradd -m appuser
-USER appuser
-
 WORKDIR /app
 
 # -------------------------------
@@ -26,8 +23,11 @@ RUN uv sync --frozen --no-cache
 # -------------------------------
 # Application layer
 # -------------------------------
-COPY . ./app
+COPY . .
+
+# Make entrypoint executable
+RUN chmod +x entrypoint.sh
 
 EXPOSE 8000
 
-CMD ["sh", "-c", "uv run alembic upgrade head && uv run uvicorn app.main:app --host 0.0.0.0 --port 8000"]
+ENTRYPOINT ["sh","./entrypoint.sh"]

@@ -17,8 +17,8 @@ async def get_current_user(
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
         user_username= payload["sub"]
-    except Exception:
-        raise HTTPException(status_code=401, detail="Invalid token")
+    except Exception as e:
+        raise HTTPException(status_code=401, detail=str(e))
 
     result = await db.execute(select(User).where(User.username == user_username))
     user = result.scalar_one_or_none()
